@@ -9,7 +9,17 @@ function App() {
   const [finished, setFinished] = useState(false);
   const [score, setScore] = useState(0);
 
-  
+  function handleOptionClick(clickedOption){
+    if(selectedOption) return;
+
+    if(clickedOption.id === currentQuestion.answerId){
+      setScore(score + 1)
+    }
+
+    setSelectedQuestion(clickedOption)
+
+  }
+
 
   return (
     <div className="App">
@@ -17,14 +27,14 @@ function App() {
         <div className="info">
           <p className="question-counter">
             Question {currentQuestion.id}
-            <span className="total">{questions.length}</span>
+            <span className="total">/{questions.length}</span>
           </p>
           <p className="question">{currentQuestion.question}</p>
         </div>
         <div className="options">
           {currentQuestion.options.map((option, i) => (
             <button
-              onClick={() => null}
+              onClick={() => handleOptionClick(option)}
               disabled={selectedOption !== null}
               className={""}
               key={i}
@@ -37,7 +47,7 @@ function App() {
           disabled={!selectedOption}
           onClick={()=>null}
           >
-            {currentQuestion.id === question[questions.length-1].id ? 'Finish' : 'Next'}
+            {currentQuestion.id === questions[questions.length-1].id ? 'Finish' : 'Next'}
           </button>
         </div>
       </div>
